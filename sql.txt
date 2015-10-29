@@ -1,0 +1,104 @@
+EX1)
+(1)create table students ( student_id INTEGER NOT NULL PRIMARY KEY, name varchar(10) NOT NULL, year tinyint NOT NULL DEFAULT 1,
+   dept_no integer not null, major varchar(20));
+(2)create table department ( dept_no integer not null auto_increment primary key, dept_name varchar(20) not null unique.
+   office varchar(20) not null, office_tel varchar(13));
+(3)alter table students modify column major varchar(40);
+(4)alter table students add column gender varchar(10);
+(5)alter table department modify column dept_name varchar(40);
+(6)alter table department modify column office varchar(30);
+EX2)
+(1)alter table students drop column gender;
+(2)insert into department (dept_no, dept_name, office, office_tel)
+   values(20070002, 'James Bond', 3, 4, 'Business Administration');
+insert into department (dept_no, dept_name, office, office_tel)
+values(20060001, 'Queenie', 4, 4, 'Business Administration');
+insert into department (dept_no, dept_name, office, office_tel)
+values(20030001, 'Reonardo', 4, 2, 'Electronic Engineering');
+insert into department (dept_no, dept_name, office, office_tel) 
+values(20040003, 'Julia', 3, 2, 'Electronic Engineering');
+insert into department (dept_no, dept_name, office, office_tel)
+values(20060002, 'Roosevelt', 3, 1, 'Computer Science');
+insert into department (dept_no, dept_name, office, office_tel) 
+values(20100002, 'Fearne', 3, 4, 'Business Administration');
+insert into department (dept_no, dept_name, office, office_tel)
+values(20110001, 'Chloe', 2, 1, 'Computer Science');
+insert into department (dept_no, dept_name, office, office_tel) 
+values(20080003, 'Amy', 4, 3, 'Law');
+insert into department (dept_no, dept_name, office, office_tel)
+values(20040002, 'Selina', 4, 5, 'English Literature');
+insert into department (dept_no, dept_name, office, office_tel) 
+values(20070001, 'Ellen', 4, 4, 'Business Administration');
+insert into department (dept_no, dept_name, office, office_tel)
+values(20100001, 'Kathy', 3, 4, 'Business Administration');
+insert into department (dept_no, dept_name, office, office_tel) 
+values(20110002, 'Lucy', 2, 2, 'Electronic Engineering');
+insert into department (dept_no, dept_name, office, office_tel)
+values(20030002, 'Michelle', 5, 1, 'Computer Science');
+insert into department (dept_no, dept_name, office, office_tel) 
+values(20070003, 'April', 4, 3, 'Law');
+insert into department (dept_no, dept_name, office, office_tel)
+values(20070005, 'Alicia', 2, 5, 'English Literature');
+insert into department (dept_no, dept_name, office, office_tel) 
+values(20100003, 'Yullia', 3, 1, 'Computer Science');
+insert into department (dept_no, dept_name, office, office_tel)
+(20070007, 'Ashlee', 2, 4, 'Business Administration');
+(3) insert into department (dept_no, dept_name, office, office_tel)
+    values (1,'Computer Science', 'Engineering building', '02-3290-0123');
+insert into department (dept_no, dept_name, office, office_tel)
+values (2,'Electronic Engineering', 'Engineering building','02-3290-2345');
+insert into department (dept_no, dept_name, office, office_tel)
+values (3, 'Law', 'Law building', '02-3290-7896');
+insert into department (dept_no, dept_name, office, office_tel)
+values (4, 'Business Administration', 'Administration building', '02-3290-1112');
+insert into department (dept_no, dept_name, office, office_tel)
+values (5, 'English Literature', 'Literature building', '02-3290-4412');
+EX3)
+(1) update department set dept_name = 'Electronic and Electrical Engineering' where dept_name = 'Electronic engineering';
+(2)insert into department (dept_name, office, office_tel) values ('Education', 'Education building', '02-3290'2347');
+(3)update students set dept_no = 6, major = 'Education' where name = 'Chloe';
+(4)delete from students where name = 'Michelle';
+(5)delete from students where name = 'Fearne';
+EX4)
+(1)select name from students where major = 'Computer science';
+(2)select student_id, year, major from students;
+(3)select name from students where year = 3;
+(4)select name from students where year = 1 or year = 2;
+(5)select name from students s join department d on s.dept_no = d.dept_no where s.dept_no = 4;
+EX5)
+(1)select name from students where student_id like '%2007%';
+(2)select name, student_id from students order by student_id;
+(3)select major, avg(year) from students group by major having avg(year) > 3;
+(4)select name from students where student_id like '%2007%' limit 2;
+EX6)
+(1)select role from roles r join movies m on r.movie_id = m.id where m.name = 'Pi';
+(2)select first_name, last_name from actors a join roles r on a.id = r.actor_id join movies m on r.movie_id = m.id where m.name = 'Pi';
+(3)select n1.first_name, n1.last_name from (select a.first_name, a.last_name from actors a join roles r on a.id = r.actor_id
+   join movies m on r.movie_id = m.id where m.name = 'Kill Bill: Vol. 2') n1 join (select a.first_name, a.last_name
+   from actors a join roles r on a.id = r.actor_id join movies m on r.movie_id = m.id where m.name = 'Kill Bill: Vol. 2') n2
+   on n1.first_name = n2.first_name and n1.last_name = n2.last_name;
+(4)select first_name, last_name, count(role) from actors a join roles r on a.id = r.actor_id group by first_name, last_name
+   order by count(role) desc limit 7;
+(5)select genre, count(genre) from movies_genres group by genre order by count(genre) desc limit 3;
+(6)select d.first_name, d.last_name, count(mg.genre) from directors d join movies_directors md on d.id = md.director_id
+   join movies m on md.movie_id = m.id join movies_genres mg on m.id = mg.movie_id where mg.genre = 'Thriller'
+   group by d.first_name, d.last_name order by count(mg.genre) desc limit 1;
+EX7)
+(1)select grade from grades g join courses c on g.course_id = c.id where name = 'Computer Science 143';
+
+Extra)
+(1)select name from movies where year = 1995;
+(2)select count(r.role) from roles r join movies m on r.movie_id = m.id where m.name = 'Lost in Traslation';
+(3)select first_name, last_name from actors a join roles r on a.id = r.actor_id join movies m on r.movie_id = m.id
+   where m.name = 'Lost in Traslation';
+(4)select first_name, last_name from directors d join movies_directors md on d.id = md.director_id join movies m on md.movie_id = m.id
+   where m.name = 'Fight Club';
+(5)select count(name) from directors d join movies_directors md on d.id = md.director_id join movies m on md.movie_id = m.id
+   where d.first_name = 'Clint' and d.last_name = 'Eastwood';
+(6)select m.name from directors d join movies_directors md on d.id = md.director_id join movies m on md.movie_id = m.id
+   where d.first_name = 'Clint' and d.last_name = 'Eastwood';
+(7)select d.first_name, d.last_name, count(dg.genre) from directors d join directors_genres dg on d.id = dg.director_id
+   where dg.genre = 'horror' group by d.first_name, d.last_name having count(dg.genre) >=1;
+(8)select a.first_name, a.last_name from actors a join roles r on a.id = r.actor_id join movies m on r.movie_id = m.id
+   join movies_directors md on m.id = md.movie_id join directors d on md.director_id = d.id
+   where d.first_name = 'Christopher' and d.last_name = 'Nolan';
