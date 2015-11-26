@@ -17,7 +17,7 @@ document.observe("dom:loaded", function() {
     		onException: ajaxFailed
     	});
     });
-});
+}); 
 
 function showSongs_XML(ajax) {
 	
