@@ -17,37 +17,30 @@ if (!file_exists($SONGS_FILE)) {
 	die("ERROR 500: Server error - Unable to read input file: $SONGS_FILE");
 }
 
-function array_sort($array, $on, $order=SORT_ASC)
+function array_sort($array, $type)
 {
     $new_array = array();
-    $sortable_array = array();
+    $array_ing = array();
 	$set = 0;
 
     if (count($array) > 0) {
-        foreach ($array as $k => $v) {
-            if (is_array($v)) {
-                foreach ($v as $k2 => $v2) {
-                    if ($k2 == $on) {
-                        $sortable_array[$k] = $v2;
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
+                foreach ($value as $key2 => $value2) {
+                    if ($key2 == $type) {
+                        $array_ing[$key] = $value2;
                     }
                 }
             }
         }
 
-        switch ($order) {
-            case SORT_ASC:
-                asort($sortable_array);
-            break;
-            case SORT_DESC:
-                arsort($sortable_array);
-            break;
-        }
+        asort($array_ing);
 
-        foreach ($sortable_array as $k => $v) {
-            $new_array[$k] = $array[$k];
+        foreach ($array_ing as $key => $value) {
+            $new_array[$key] = $array[$key];
         }
         
-       	foreach ($new_array as $k => $v) {
+       	foreach ($new_array as $key => $value) {
             $new_array2[$set] = $new_array[$k];
 			$set = $set + 1;
         }
@@ -71,7 +64,7 @@ for ($i = 0; $i < count($lines); $i++) {
 	$data[$i] = array('rank'=>$rank, 'title'=>$title, 'artist'=>$artist, 'genre'=>$genre, 'time'=>$time);
 }
 
-$newdata = array_sort($data, 'rank', SORT_ASC);
+$newdata = array_sort($data, 'rank');
 
 for ($i = 0; $i < count($newdata); $i++) {
 	if ($newdata[$i]['rank'] <= $top) {
